@@ -19,7 +19,28 @@
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
 
-int	get_width(const char *av)
+typedef	struct s_data
+{
+	int	height;
+	int	width;
+	int	**tab;
+	char	**av;
+} 	t_data;
+
+void	free_tab(char **tab)
+{
+	char	**tmp;
+
+	tmp = tab;
+	while(*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(tab);
+}
+
+int	get_width(t_data *data)
 {
 	int	i;
 	int	fd;
@@ -27,7 +48,7 @@ int	get_width(const char *av)
 	char	**tab;
 
 	i = 0;
-	fd = open(av, O_RDONLY);
+	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
@@ -41,17 +62,18 @@ int	get_width(const char *av)
 	}
 	close(fd);
 	free(line);
+	free_tab(tab);
 	return (i);
 }
 
-int	get_height(const char *av)
+int	get_height(t_data *data)
 {
 	int	i;
 	int	fd;
 	char	*line;
 
 	i = 0;
-	fd = open(av, O_RDONLY);
+	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
@@ -66,45 +88,41 @@ int	get_height(const char *av)
 	return (i);
 }
 
-int	*filltab(int *ltab, char *line)
+int	*filltab(int *ltab, char *line, t_data *data)
 {
 	int	i;
 	char 	**sp;
-	char	*tmp;
 
 	i = 0;
-	tmp = ft_strdup(line);
-	sp = ft_split(tmp, ' ');
-	while(sp[i])
+	sp = ft_split(line, ' ');
+	while(i < data->width)
 	{
 		ltab[i] = ft_atoi(sp[i]);
 		i++;
 	}
-	free(tmp);
 	ltab[i] = 0;
+	free_tab(sp);
 	return (ltab);
 }
 
 
-int	**init_tab(char *av)
+int	**init_tab(t_data *data)
 {
 	int	**tab;
 	int	i;
-	int	height;
 	int	fd;
 	char	*line;
 
 	i = 0;
-	height = get_height(av);
-	tab = malloc(sizeof(int *) * (height + 1));
-	fd = open(av, O_RDONLY);
+	tab = malloc(sizeof(int *) * (data->height + 1));
+	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1 || !tab)
 		return (NULL);
 	line = get_next_line(fd);
-	while (line && i < height)
+	while (i < data->height)
 	{
-		tab[i] = malloc(sizeof(int) * (get_width(av) + 1));
-		tab[i] = filltab(tab[i], line);
+		tab[i] = malloc(sizeof(int) * (data->width));
+		tab[i] = filltab(tab[i], line, data);
 		free(line);
 		line = get_next_line(fd);
 		i++;
@@ -119,22 +137,28 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-	int	**tab;
+	t_data	*data;
 	int	i;
 	int	y;
 
-	tab = init_tab(av[1]);
+	data = malloc(sizeof(t_data) * 1);
+	data->av = av;
+	data->height = get_height(data);
+	data->width = get_width(data);
+	data->tab = init_tab(data);
 	i = 0;
-	while (tab[i])
+	while (i < data->height)
 	{
 		y = 0;
-		while (tab[i][y])
+		while (y < data->width)
 		{
-			printf("%d", tab[i][y]);
+			printf("%d", data->tab[i][y]);
 			y++;
 		}
-		write (1, "\n", 1);
+		printf("\n");
 		i++;
 	}
+	free_tab(data->tab);
+	free(data);
 	return (0);
 }
