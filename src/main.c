@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/06 19:44:47 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:36:41 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,12 @@ int	main(int ac, char **av)
 		y = 0;
 		while (y < data->width)
 		{
-			printf("%d", data->tab[i][y]);
+			printf("%3d", data->tab[i][y]);
 			y++;
 		}
 		printf("\n");
 		i++;
 	}
-	free_tab(data->tab);
 	free(data);
 	return (0);
 }
