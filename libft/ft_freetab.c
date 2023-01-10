@@ -6,14 +6,14 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:20:43 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/10 13:23:46 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:37:50 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-void	free_tab(char **tab)
+void	ft_freetab(char **tab)
 {
 	char	**tmp;
 

@@ -6,39 +6,11 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/10 11:36:41 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:57:23 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include "../libft/libft.h"
-#include "../libft/get_next_line.h"
-
-typedef	struct s_data
-{
-	int	height;
-	int	width;
-	int	**tab;
-	char	**av;
-} 	t_data;
-
-void	free_tab(char **tab)
-{
-	char	**tmp;
-
-	tmp = tab;
-	while(*tmp)
-	{
-		free(*tmp);
-		tmp++;
-	}
-	free(tab);
-}
+#include "fdf.h"
 
 int	get_width(t_data *data)
 {
@@ -62,7 +34,7 @@ int	get_width(t_data *data)
 	}
 	close(fd);
 	free(line);
-	free_tab(tab);
+	ft_freetab(tab);
 	return (i);
 }
 
@@ -100,8 +72,7 @@ int	*filltab(int *ltab, char *line, t_data *data)
 		ltab[i] = ft_atoi(sp[i]);
 		i++;
 	}
-	ltab[i] = 0;
-	free_tab(sp);
+	ft_freetab(sp);
 	return (ltab);
 }
 
@@ -114,6 +85,8 @@ int	**init_tab(t_data *data)
 	char	*line;
 
 	i = 0;
+	data->height = get_height(data);
+	data->width = get_width(data);
 	tab = malloc(sizeof(int *) * (data->height + 1));
 	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1 || !tab)
@@ -127,13 +100,12 @@ int	**init_tab(t_data *data)
 		line = get_next_line(fd);
 		i++;
 	}
-	tab[i] = 0;
 	free(line);
 	close (fd);
 	return (tab);
 }	
 
-int	main(int ac, char **av)
+/*int	main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
@@ -160,4 +132,4 @@ int	main(int ac, char **av)
 	}
 	free(data);
 	return (0);
-}
+}*/

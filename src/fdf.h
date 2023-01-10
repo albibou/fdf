@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/10 18:08:43 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:35:58 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct	s_data
 	char	**av;
 }	t_data;
 
-
+int	get_width(t_data *data);
+int	get_height(t_data *data);
+int	**init_tab(t_data *data);
 
 
 #endif
