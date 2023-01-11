@@ -1,4 +1,4 @@
-#include "./minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <X11/keysym.h>
@@ -15,10 +15,20 @@
 # define GREEN 0x0000FF00
 # define WHITE 0x00F0FFF0
 
+typedef struct	s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int	bpp;
+	int	line_len;
+	int	endian;
+}	t_img;
+
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
+	t_img	img;
 } t_data;
 
 typedef struct s_rect
@@ -31,40 +41,44 @@ typedef struct s_rect
 } t_rect;
 
 
-void	render_background(t_data *data, int color)
+void	img_pix_put(t_img *img, int x, int y, int color)
+{
+	char *pixel;
+
+	pixel = img->addr + (( y * img->line_len ) + ( x * (img->bpp / 8)));
+	*(int *)pixel = color;
+}
+
+void	render_background(t_img *img, int color)
 {
 	int	i;
 	int	j;
 
-	if (data->win == NULL)
-		return;
 	i = 0;
 	while (i < HEIGHT)
 	{
 		j = 0;
 		while (j < WIDTH)
 		{
-			mlx_pixel_put(data->mlx, data->win, j, i, color);
+			img_pix_put(img, j, i, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-int	render_rect(t_data *data, t_rect rect)
+int	render_rect(t_img *img, t_rect rect)
 {
 	int	i;
 	int	j;
 
-	if(data->win == NULL)
-		return (1);
 	i = rect.y;
 	while (i < rect.y + rect.height)
 	{
 		j = rect.x;
 		while (j < rect.x + rect.width)
 		{
-			mlx_pixel_put(data->mlx, data->win, j, i, rect.color);
+			img_pix_put(img, j, i, rect.color);
 			j++;
 		}
 		i++;
@@ -74,10 +88,12 @@ int	render_rect(t_data *data, t_rect rect)
 
 int	render(t_data *data)
 {
-	//render_background(data, WHITE);
-	render_rect(data, (t_rect){WIDTH - 200, HEIGHT / 2 - 100, 200, 200, GREEN});
-	render_rect(data, (t_rect){0, HEIGHT / 2 - 100, 200, 200, RED});
-	render_rect(data, (t_rect){(WIDTH / 2) - 100, (HEIGHT / 2) - 100, 200, 200, BLUE});
+	render_background(&data->img, WHITE);
+	render_rect(&data->img, (t_rect){WIDTH - 200, HEIGHT / 2 - 100, 200, 200, GREEN});
+	render_rect(&data->img, (t_rect){0, HEIGHT / 2 - 100, 200, 200, RED});
+	render_rect(&data->img, (t_rect){(WIDTH / 2) - 100, (HEIGHT / 2) - 100, 200, 200, BLUE});
+
+	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 	return (0);
 }
 
@@ -106,6 +122,8 @@ int main(void)
 		return (MLX_ERROR);
 	}
 
+	data.img.mlx_img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
 	mlx_loop_hook(data.mlx, &render, &data);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
 
