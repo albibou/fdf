@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/11 18:48:57 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/12 14:25:05 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int ac, char **av)
 	data->tab = init_tab(data);
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, W_WIDTH, W_HEIGHT, W_NAME);
-	//display_map(data);
 	i = 0;
 	while (i < data->height)
 	{
@@ -38,11 +37,10 @@ int	main(int ac, char **av)
 		printf("\n");
 		i++;
 	}
-	mlx_loop_hook(data->mlx_ptr, &display_map, &data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &manage_event, &data);
+	mlx_loop_hook(data->mlx_ptr, &display_map, data);
+	mlx_hook(data->win_ptr, 2, 1L<<0, &manage_event, data);
 	mlx_loop(data->mlx_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
-	free(data);
-	return (0);
+	//free(data);
 }

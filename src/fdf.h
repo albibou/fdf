@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/11 18:12:12 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/12 11:08:40 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <X11/keysym.h>
+#include <X11/X.h>
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
@@ -54,7 +56,7 @@ int	get_width(t_data *data);
 int	get_height(t_data *data);
 int	**init_tab(t_data *data);
 int	manage_event(int keysym, t_data *data);
-void	display_map(t_data *data);
+int	display_map(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_img *img, int color);
 

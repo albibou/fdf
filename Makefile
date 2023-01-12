@@ -1,10 +1,12 @@
 SRCS	= ./src/main.c \
+	  ./src/parse.c \
+	  ./src/draw.c \
 
 OBJS	= ${SRCS:.c=.o}
 
 LIBFT	= ./libft/libft.a \
 
-NAME	= fdf
+TITLE	= fdf
 
 RM	= rm -f
 
@@ -18,9 +20,9 @@ MLXFLAGS	= -Lminilibx-linux -lX11 -lXext -lmlx
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-		${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBF} ${MLXFLAGS}
+		${CC} ${CFLAGS} -o ${TITLE} ${OBJS} ${LIBFT} ${MLXFLAGS}
 
-all :		
+all :	
 		make all -C libft
 		make all -C minilibx-linux	
 		${NAME}
