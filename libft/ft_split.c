@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:59:58 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/10 18:40:15 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:59:39 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ static int	ft_wordlen(char *str, char c)
 	while (str[i] && str[i] != c)
 		i++;
 	return (i);
+}
+
+void	ft_freetab(char **tab)
+{
+	char	**tmp;
+
+	tmp = tab;
+	while (*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(tab);
 }
 
 static char	*ft_putword(char *str, char c, char **tab)
