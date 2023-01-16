@@ -6,25 +6,23 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/13 17:32:30 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/16 13:22:22 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
-/*void	isometric(float *x, float *y, t_data *data)
+void	isometric(float *x, float *y, int z)
 {
-	int	z;
-	float	xtmp;
-	float	ytmp;
+	float	xtemp;
+	float	ytemp;
 
-	xtmp = *x;
-	ytmp = *y;
-	z = data->tab[(int)*x][(int)*y];
-	*x = (xtmp - ytmp) * cos(0.8);
-	*y = ((xtmp + ytmp) * sin(0.8) - z);
-}*/
+	xtemp = *x;
+	ytemp = *y;
+	*x = (xtemp - ytemp) * cos(0.6);
+	*y = ((xtemp + ytemp) * sin(0.6) - z);
+}
 
 
 void	img_pix_put(t_img *img, int x, int y, int color)
@@ -59,14 +57,30 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 	float	yincr;
 	float	err;
 	int	zoom;
+	int	z;
+	int	z1;
 
-	//isometric(&x, &y, data);
-	//isometric(&x1, &y1, data);
+	z = data->tab[(int)y][(int)x];
+	z1 = data->tab[(int)y1][(int)x1];
+	//z /= 100;
+	//z1 /= 100;
+	if (z > 0 || z1 > 0)
+		data->color = 0x0000FF00;
+	else if (z < 0 || z1 < 0)
+		data->color = 0x00FF0000;
+	else
+		data->color = 0x00FFFFFF;
+	/*isometric(&x, &y, z);
+	isometric(&x1, &y1, z1);*/
 	zoom = 20;
 	x *= zoom;
 	y *= zoom;
 	x1 *= zoom;
 	y1 *= zoom;
+	x += 250;
+	y += 250;
+	x1 += 250;
+	y1 += 250;
 	xincr = x1 - x;
 	yincr = y1 - y;
 	err = find_max(find_abs(xincr), find_abs(yincr));
@@ -74,7 +88,7 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 	yincr /= err;
 	while((int)x < (int)x1 || (int)y < (int)y1)
 	{
-		img_pix_put(&data->img, x, y, 0x00FFFFFF);
+		img_pix_put(&data->img, x, y, data->color);
 		x += xincr;
 		y += yincr;
 	}
