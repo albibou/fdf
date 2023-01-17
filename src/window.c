@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:08:37 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/13 18:20:53 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/17 16:46:37 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ int	manage_event(int keysym, t_data *data)
 	{
 		freedata(data);
 		exit(0);
+	}
+	else if (keysym == 112)
+	{
+		data->zoom += 1;
+		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+		display_map(data);
+
+	}	
+	else if (keysym == 108 && data->zoom > 1)
+	{
+		data->zoom -= 1;
+		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+		display_map(data);
 	}
 	return (0);
 }

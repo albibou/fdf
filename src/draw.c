@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/16 13:22:22 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/17 17:57:19 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 void	isometric(float *x, float *y, int z)
 {
-	float	xtemp;
+	/*float	xtemp;
 	float	ytemp;
 
 	xtemp = *x;
-	ytemp = *y;
-	*x = (xtemp - ytemp) * cos(0.6);
-	*y = ((xtemp + ytemp) * sin(0.6) - z);
+	ytemp = *y;*/
+	*x = (*x - *y) * cos(0.8);
+	*y = ((*x + *y) * sin(0.8) - z);
 }
 
 
@@ -56,39 +56,38 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 	float	xincr;
 	float	yincr;
 	float	err;
-	int	zoom;
 	int	z;
 	int	z1;
 
 	z = data->tab[(int)y][(int)x];
 	z1 = data->tab[(int)y1][(int)x1];
-	//z /= 100;
-	//z1 /= 100;
+	z /= 10;
+	z1 /= 10;
 	if (z > 0 || z1 > 0)
 		data->color = 0x0000FF00;
 	else if (z < 0 || z1 < 0)
 		data->color = 0x00FF0000;
 	else
 		data->color = 0x00FFFFFF;
-	/*isometric(&x, &y, z);
-	isometric(&x1, &y1, z1);*/
-	zoom = 20;
-	x *= zoom;
-	y *= zoom;
-	x1 *= zoom;
-	y1 *= zoom;
-	x += 250;
-	y += 250;
-	x1 += 250;
-	y1 += 250;
+	isometric(&x, &y, z);
+	isometric(&x1, &y1, z1);
+	x *= data->zoom;
+	y *= data->zoom;
+	x1 *= data->zoom;
+	y1 *= data->zoom;
+	x += 400;
+	y += 100;
+	x1 += 400;
+	y1 += 100;
 	xincr = x1 - x;
 	yincr = y1 - y;
 	err = find_max(find_abs(xincr), find_abs(yincr));
 	xincr /= err;
 	yincr /= err;
-	while((int)x < (int)x1 || (int)y < (int)y1)
+	while((int)(x1 - x) || (int)(y1 - y))
 	{
-		img_pix_put(&data->img, x, y, data->color);
+		if(x < W_WIDTH && x >= 0 && y < W_HEIGHT && y>= 0)
+			img_pix_put(&data->img, x, y, data->color);
 		x += xincr;
 		y += yincr;
 	}

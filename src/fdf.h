@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/16 12:41:18 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/17 16:37:05 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_data
 	int	height;
 	int	width;
 	int 	color;
+	int	zoom;
 	int	**tab;
 	char	**av;
 	void	*mlx_ptr;
