@@ -6,23 +6,24 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:54:07 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/13 17:55:53 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:03:55 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-void	ft_free_inttab(int **tab)
+void	ft_free_inttab(int **tab, int height)
 {
 	int	**tmp;
+	int	i;
 
 	tmp = tab;
-	while(*tmp)
+	i = 0;
+	while(i < height)
 	{
-		free(*tmp);
-		tmp++;
+		free(tmp[i]);
+		i++;
 	}
 	free(tab);
 }
-

@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/17 17:57:19 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/18 20:27:34 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,35 @@ void	render_background(t_img *img, int color)
 	}
 }
 
+void	draw_rectangle(t_img *img, int x, int y)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i <= 200)
+	{
+		j = 0;
+		while(j <= 300)
+		{
+			img_pix_put(img, x + j, y + i, 0x00393E46);
+			j++;
+		}
+		i++;
+	}
+}
+
+
+void	render_instructions(t_img *img)
+{
+	draw_rectangle(img, 0, 56);
+	draw_rectangle(img, 0, 312);
+	draw_rectangle(img, 0, 568);
+	draw_rectangle(img, 0, 824);
+
+}
+
+
 void	draw_line(float x, float y, float x1, float y1, t_data *data)
 {
 	float	xincr;
@@ -61,24 +90,20 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 
 	z = data->tab[(int)y][(int)x];
 	z1 = data->tab[(int)y1][(int)x1];
-	z /= 10;
-	z1 /= 10;
-	if (z > 0 || z1 > 0)
-		data->color = 0x0000FF00;
-	else if (z < 0 || z1 < 0)
-		data->color = 0x00FF0000;
-	else
-		data->color = 0x00FFFFFF;
+	data->color = color_fade(data, z);
+	data->color = color_fade(data, z1);
+	z /= data->zcoeff;
+	z1 /= data->zcoeff;
 	isometric(&x, &y, z);
 	isometric(&x1, &y1, z1);
 	x *= data->zoom;
 	y *= data->zoom;
 	x1 *= data->zoom;
 	y1 *= data->zoom;
-	x += 400;
-	y += 100;
-	x1 += 400;
-	y1 += 100;
+	x += data->xoffset;
+	y += data->yoffset;
+	x1 += data->xoffset;
+	y1 += data->yoffset;
 	xincr = x1 - x;
 	yincr = y1 - y;
 	err = find_max(find_abs(xincr), find_abs(yincr));

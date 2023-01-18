@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:06:43 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/13 18:16:02 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:04:10 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	freedata(t_data *data)
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
-	ft_free_inttab(data->tab);
+	ft_free_inttab(data->tab, data->height);
 	free(data);
 }

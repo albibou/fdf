@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/17 16:37:54 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/18 17:19:39 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	find_abs(int x)
 	return (x);
 }
 
+
+
 int	main(int ac, char **av)
 {
 	(void)ac;
@@ -40,6 +42,12 @@ int	main(int ac, char **av)
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, W_WIDTH, W_HEIGHT, W_NAME);
 	data->zoom = 1;
+	data->xoffset = 900;
+	data->yoffset = 450;
+	data->zcoeff = 1;
+	data->zmax = 0;
+	data->zmin = 0;
+	//data->projection = 0;
 	i = 0;
 	while (i < data->height)
 	{
@@ -47,6 +55,11 @@ int	main(int ac, char **av)
 		while (y < data->width)
 		{
 			printf("%3d", data->tab[i][y]);
+			if (data->tab[i][y] > data->zmax)
+				data->zmax = data->tab[i][y];
+			else if (data->tab[i][y] < data->zmin)
+				data->zmin = data->tab[i][y];
+
 			y++;
 		}
 		printf("\n");

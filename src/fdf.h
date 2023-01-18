@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/17 16:37:05 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/18 19:54:02 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 #include "../libft/get_next_line.h"
 #include "../libft/ft_printf.h"
 
-# define W_WIDTH	1000
-# define W_HEIGHT	800
+# define W_WIDTH	1920
+# define W_HEIGHT	1080
 # define W_NAME	"Fdf"
 # define BACK_BLACK	0x00171717
 
@@ -45,6 +45,12 @@ typedef struct	s_data
 {
 	int	height;
 	int	width;
+	int	xoffset;
+	int	yoffset;
+	int	projection;
+	int	zcoeff;
+	int	zmax;
+	int	zmin;
 	int 	color;
 	int	zoom;
 	int	**tab;
@@ -60,6 +66,7 @@ int	get_height(t_data *data);
 int	**init_tab(t_data *data);
 int	manage_event(int keysym, t_data *data);
 int	display_map(t_data *data);
+int	color_fade(t_data *data, int z);
 int	find_max(int x, int y);
 int	find_abs(int x);
 void	draw_map(t_data *data);
@@ -67,5 +74,6 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data);
 void	freedata(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_img *img, int color);
+void	render_instructions(t_img *img);
 
 #endif
