@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/18 20:27:34 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/24 18:34:43 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	isometric(float *x, float *y, int z)
 
 	xtemp = *x;
 	ytemp = *y;*/
-	*x = (*x - *y) * cos(0.8);
-	*y = ((*x + *y) * sin(0.8) - z);
+	*x = (*x - *y) * cos(0.75);
+	*y = ((*x + *y) * sin(0.75) - z);
 }
 
 
@@ -33,11 +33,16 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	render_background(t_img *img, int color)
+void	render_background(t_img *img, t_data *data)
 {
 	int	i;
 	int	j;
+	int 	color;
 
+	if (data->palette == 2)
+		color = 0x00FBFBFB;
+	else 
+		color = 0x00171717;
 	i = 0;
 	while (i < W_HEIGHT)
 	{
@@ -60,7 +65,7 @@ void	draw_rectangle(t_img *img, int x, int y)
 	while (i <= 200)
 	{
 		j = 0;
-		while(j <= 300)
+		while(j <= 399)
 		{
 			img_pix_put(img, x + j, y + i, 0x00393E46);
 			j++;
@@ -70,13 +75,24 @@ void	draw_rectangle(t_img *img, int x, int y)
 }
 
 
-void	render_instructions(t_img *img)
+void	render_instructionbox(t_img *img)
 {
 	draw_rectangle(img, 0, 56);
 	draw_rectangle(img, 0, 312);
 	draw_rectangle(img, 0, 568);
 	draw_rectangle(img, 0, 824);
+}
 
+void	render_instructiontext(t_data *data)
+{
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 122, 0x00E5E7E6, "Move up / down  :  W / S");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 189, 0x00E5E7E6, "Move left / right  :  A / D");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 378, 0x00E5E7E6, "Zoom in / out  :  P / L");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 445, 0x00E5E7E6, "Decrease / increase height  :  N / M");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 634, 0x00E5E7E6, "Change color palette  :  C");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 701, 0x00E5E7E6, "Projection  :  V");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 890, 0x00E5E7E6, "Reset  :  R");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 957, 0x00E5E7E6, "Quit  :  ESC");
 }
 
 
@@ -85,17 +101,19 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 	float	xincr;
 	float	yincr;
 	float	err;
-	int	z;
-	int	z1;
+	float	z;
+	float	z1;
 
 	z = data->tab[(int)y][(int)x];
 	z1 = data->tab[(int)y1][(int)x1];
-	data->color = color_fade(data, z);
-	data->color = color_fade(data, z1);
+	data->color = color_hub(data, z);
 	z /= data->zcoeff;
 	z1 /= data->zcoeff;
-	isometric(&x, &y, z);
-	isometric(&x1, &y1, z1);
+	if (data->projection == 0)
+	{
+		isometric(&x, &y, z);
+		isometric(&x1, &y1, z1);
+	}
 	x *= data->zoom;
 	y *= data->zoom;
 	x1 *= data->zoom;

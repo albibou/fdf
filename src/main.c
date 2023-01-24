@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/18 17:19:39 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/24 18:48:25 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ int	find_abs(int x)
 	return (x);
 }
 
+int	find_min(int x, int y)
+{
+	if (x < y)
+		return (x);
+	return (y);
+}
+
+
+int	find_zcoeff(t_data *data)
+{
+	int	ztemp;
+	int	rapport;
+	int	coeff;
+
+	rapport = find_min(data->height, data->width);
+	ztemp = data->zmax;
+	coeff = 1;
+	while ((ztemp / coeff > rapport / 10))
+		coeff += 1;
+	return (coeff);
+}
+
+
 
 
 int	main(int ac, char **av)
@@ -41,13 +64,13 @@ int	main(int ac, char **av)
 	data->tab = init_tab(data);
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, W_WIDTH, W_HEIGHT, W_NAME);
-	data->zoom = 1;
+	data->zoom = 7;
 	data->xoffset = 900;
 	data->yoffset = 450;
-	data->zcoeff = 1;
 	data->zmax = 0;
 	data->zmin = 0;
-	//data->projection = 0;
+	data->palette = 0;
+	data->projection = 0;
 	i = 0;
 	while (i < data->height)
 	{
@@ -65,6 +88,7 @@ int	main(int ac, char **av)
 		printf("\n");
 		i++;
 	}
+	data->zcoeff = find_zcoeff(data);
 	display_map(data);
 	mlx_hook(data->win_ptr, 2, 1L<<0, &manage_event, data);
 	mlx_loop(data->mlx_ptr);

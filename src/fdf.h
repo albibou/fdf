@@ -6,12 +6,12 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/18 19:54:02 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/24 18:40:04 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FDF_H
-# define	FDF_H
+#ifndef	_FDF_H
+# define	_FDF_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,12 +48,13 @@ typedef struct	s_data
 	int	xoffset;
 	int	yoffset;
 	int	projection;
-	int	zcoeff;
 	int	zmax;
 	int	zmin;
+	int	palette;
 	int 	color;
 	int	zoom;
 	int	**tab;
+	int	zcoeff;
 	char	**av;
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -66,14 +67,15 @@ int	get_height(t_data *data);
 int	**init_tab(t_data *data);
 int	manage_event(int keysym, t_data *data);
 int	display_map(t_data *data);
-int	color_fade(t_data *data, int z);
+int	color_hub(t_data *data, int z);
 int	find_max(int x, int y);
 int	find_abs(int x);
 void	draw_map(t_data *data);
 void	draw_line(float x, float y, float x1, float y1, t_data *data);
 void	freedata(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
-void	render_background(t_img *img, int color);
-void	render_instructions(t_img *img);
+void	render_background(t_img *img, t_data *data);
+void	render_instructionbox(t_img *img);
+void	render_instructiontext(t_data *data);
 
 #endif

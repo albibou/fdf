@@ -6,12 +6,11 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:23:22 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/18 17:45:38 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:40:27 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 int	getratio(t_data *data, int z)
 {
@@ -26,8 +25,7 @@ int	getratio(t_data *data, int z)
 	return (ratio);
 }
 
-
-int	color_fade(t_data *data, int z)
+int	color_fadea(t_data *data, int z)
 {
 	int	ratio;
 
@@ -44,6 +42,58 @@ int	color_fade(t_data *data, int z)
 		return (0x00d3af97);
 	else if (ratio < -33 && ratio >= -66)
 		return (0x00bb4e54);
-	else 
+	else
 		return (0x00a7001e);
+}
+
+int	color_fadeb(t_data *data, int z)
+{
+	int	ratio;
+
+	ratio = getratio(data, z);
+	if (ratio == 0)
+		return (0x007aa95c);
+	else if (ratio > 0 && ratio <= 33)
+		return (0x005D7052);
+	else if (ratio > 33 && ratio <= 66)
+		return (0x0093441A);
+	else if (ratio > 66)
+		return (0x00E5E7E6);
+	else if (ratio < 0 && ratio >= -33)
+		return (0x0004BBFF);
+	else if (ratio < -33 && ratio >= -66)
+		return (0x000594D0);
+	else
+		return (0x00003C57);
+}
+
+int	color_fadec(t_data *data, int z)
+{
+	int	ratio;
+
+	ratio = getratio(data, z);
+	if (ratio == 0)
+		return (0x000B162C);
+	else if (ratio > 0 && ratio <= 33)
+		return (0x0026496a);
+	else if (ratio > 33 && ratio <= 66)
+		return (0x004889b8);
+	else if (ratio > 66)
+		return (0x005cafe7);
+	else if (ratio < 0 && ratio >= -33)
+		return (0x00482a48);
+	else if (ratio < -33 && ratio >= -66)
+		return (0x00c25381);
+	else
+		return (0x00ff679d);
+}
+
+int	color_hub(t_data *data, int z)
+{
+	if (data->palette == 0)
+		return (color_fadea(data, z));
+	else if (data->palette == 1)
+		return (color_fadeb(data, z));
+	else
+		return (color_fadec(data, z));
 }
