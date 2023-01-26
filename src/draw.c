@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/24 18:34:43 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:49:30 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ void	isometric(float *x, float *y, int z)
 
 	xtemp = *x;
 	ytemp = *y;*/
-	*x = (*x - *y) * cos(0.75);
-	*y = ((*x + *y) * sin(0.75) - z);
+	*x = (*x - *y) * cos(0.8);
+	*y = ((*x + *y) * sin(0.8) - z);
 }
 
+void	cabinet(float *x, float *y, int z)
+{
+	*x = *x + (z * cos(0.8)) / 2;
+	*y = *y + (z * sin(0.8)) / 2;
+}
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -95,6 +100,7 @@ void	render_instructiontext(t_data *data)
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 957, 0x00E5E7E6, "Quit  :  ESC");
 }
 
+//void	set_points(float x, float y, float x1, float y1, float z, float z1
 
 void	draw_line(float x, float y, float x1, float y1, t_data *data)
 {
@@ -113,6 +119,11 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 	{
 		isometric(&x, &y, z);
 		isometric(&x1, &y1, z1);
+	}
+	else if (data->projection == 1)
+	{
+		cabinet(&x, &y, z);
+		cabinet(&x1, &y1, z1);
 	}
 	x *= data->zoom;
 	y *= data->zoom;
@@ -137,6 +148,7 @@ void	draw_line(float x, float y, float x1, float y1, t_data *data)
 
 }
 
+//void	bresenham_algorithm
 
 void	draw_map(t_data *data)
 {

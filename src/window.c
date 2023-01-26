@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:08:37 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/24 18:30:36 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:49:48 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,15 @@ int	manage_event(int keysym, t_data *data)
 		exit(0);
 	}
 	else if (keysym == 112)
+	{
 		data->zoom += 1;
-	else if (keysym == 108 && data->zoom > 1)
+		//find_offsets(data);
+	}
+	else if (keysym == 108 && data->zoom >= 3)
+	{
 		data->zoom -= 1;
+		//find_offsets(data);
+	}
 	else if (keysym == 119)
 		data->yoffset -= 10;
 	else if (keysym == 115)
@@ -36,9 +42,9 @@ int	manage_event(int keysym, t_data *data)
 		data->zcoeff += 1;
 	else if (keysym == 109 && data->zcoeff > 1)
 		data->zcoeff -= 1;
-	else if (keysym == 118 && data->projection < 1)
+	else if (keysym == 118 && data->projection < 2)
 		data->projection += 1;
-	else if (keysym == 118 && data->projection == 1)
+	else if (keysym == 118 && data->projection == 2)
 		data->projection = 0;
 	else if (keysym == 99 && data->palette == 2)
 		data->palette = 0;

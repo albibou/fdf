@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/24 18:40:04 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:56:00 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ typedef struct	s_data
 {
 	int	height;
 	int	width;
-	int	xoffset;
-	int	yoffset;
+	float	xoffset;
+	float	yoffset;
 	int	projection;
 	int	zmax;
 	int	zmin;
 	int	palette;
 	int 	color;
-	int	zoom;
+	float	zoom;
 	int	**tab;
 	int	zcoeff;
 	char	**av;
@@ -70,6 +70,7 @@ int	display_map(t_data *data);
 int	color_hub(t_data *data, int z);
 int	find_max(int x, int y);
 int	find_abs(int x);
+void	find_offsets(t_data *data);
 void	draw_map(t_data *data);
 void	draw_line(float x, float y, float x1, float y1, t_data *data);
 void	freedata(t_data *data);
