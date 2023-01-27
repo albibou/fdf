@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/26 17:18:17 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:32:19 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,24 @@ void	find_offsets(t_data *data)
 	//data->yoffset -= (data->height * data->zoom) / 2;
 }
 
-/*int	find_zoom(t_data *data)
+int	find_zoom(t_data *data)
 {
+	float	ratio;
 
+	if(data->height > data->width)
+		ratio = W_HEIGHT / data->height;
+	else
+		ratio = W_WIDTH / data->width;
 
-
-
-}*/
+	if (ratio < 2)
+		return (2);
+	else if (ratio >= 2 && ratio <= 30)
+		return (5);
+	else if (ratio > 30 && ratio <= 70)
+		return (10);
+	else
+		return (20);
+}
 
 int	main(int ac, char **av)
 {
@@ -76,9 +87,6 @@ int	main(int ac, char **av)
 	data->tab = init_tab(data);
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, W_WIDTH, W_HEIGHT, W_NAME);
-	data->zoom = 2;
-	//data->xoffset = 900;
-	//data->yoffset = 450;
 	data->zmax = 0;
 	data->zmin = 0;
 	data->palette = 0;
@@ -101,6 +109,7 @@ int	main(int ac, char **av)
 		i++;
 	}
 	data->zcoeff = find_zcoeff(data);
+	data->zoom = find_zoom(data);
 	find_offsets(data);
 	display_map(data);
 	mlx_hook(data->win_ptr, 2, 1L<<0, &manage_event, data);
