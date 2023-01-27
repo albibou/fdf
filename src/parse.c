@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/18 12:51:57 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:04:22 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	get_width(t_data *data)
 {
-	int	i;
-	int	fd;
+	int		i;
+	int		fd;
 	char	*line;
 	char	**tab;
 
@@ -40,8 +40,8 @@ int	get_width(t_data *data)
 
 int	get_height(t_data *data)
 {
-	int	i;
-	int	fd;
+	int		i;
+	int		fd;
 	char	*line;
 
 	i = 0;
@@ -62,12 +62,12 @@ int	get_height(t_data *data)
 
 int	*filltab(int *ltab, char *line, t_data *data)
 {
-	int	i;
-	char 	**sp;
+	int		i;
+	char	**sp;
 
 	i = 0;
 	sp = ft_split(line, ' ');
-	while(i < data->width)
+	while (i < data->width)
 	{
 		ltab[i] = ft_atoi(sp[i]);
 		i++;
@@ -76,12 +76,11 @@ int	*filltab(int *ltab, char *line, t_data *data)
 	return (ltab);
 }
 
-
 int	**init_tab(t_data *data)
 {
-	int	**tab;
-	int	i;
-	int	fd;
+	int		**tab;
+	int		i;
+	int		fd;
 	char	*line;
 
 	i = 0;

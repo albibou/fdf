@@ -1,6 +1,10 @@
 SRCS	= ./src/main.c \
 	  ./src/parse.c \
 	  ./src/draw.c \
+	  ./src/window.c \
+	  ./src/freedata.c \
+	  ./src/color.c \
+	  ./src/init.c \
 
 OBJS	= ${SRCS:.c=.o}
 
@@ -14,17 +18,16 @@ CC	= cc
 
 CFLAGS	= -Wall -Werror -Wextra
 
-MLXFLAGS	= -Lminilibx-linux -lX11 -lXext -lmlx
+MLXFLAGS	= -Lminilibx-linux -lX11 -lXext -lmlx -lm
 
-.c.o :	
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+NAME	= fdf
 
-${NAME}:	${OBJS}
-		${CC} ${CFLAGS} -o ${TITLE} ${OBJS} ${LIBFT} ${MLXFLAGS}
-
-all :	
+${NAME}	:	
 		make all -C libft
-		make all -C minilibx-linux	
+		make all -C minilibx-linux
+		${CC} -o ${NAME} -g ${CFLAGS} ${SRCS} ${LIBFT} ${MLXFLAGS} 
+
+all :		
 		${NAME}
 
 clean :

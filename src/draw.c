@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/26 16:49:30 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:40:16 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 void	isometric(float *x, float *y, int z)
 {
-	/*float	xtemp;
-	float	ytemp;
+	//float	xtemp;
+	//float	ytemp;
 
-	xtemp = *x;
-	ytemp = *y;*/
+	//xtemp = *x;
+	//ytemp = *y;
 	*x = (*x - *y) * cos(0.8);
 	*y = ((*x + *y) * sin(0.8) - z);
 }
@@ -78,29 +78,6 @@ void	draw_rectangle(t_img *img, int x, int y)
 		i++;
 	}
 }
-
-
-void	render_instructionbox(t_img *img)
-{
-	draw_rectangle(img, 0, 56);
-	draw_rectangle(img, 0, 312);
-	draw_rectangle(img, 0, 568);
-	draw_rectangle(img, 0, 824);
-}
-
-void	render_instructiontext(t_data *data)
-{
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 122, 0x00E5E7E6, "Move up / down  :  W / S");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 189, 0x00E5E7E6, "Move left / right  :  A / D");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 378, 0x00E5E7E6, "Zoom in / out  :  P / L");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 445, 0x00E5E7E6, "Decrease / increase height  :  N / M");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 634, 0x00E5E7E6, "Change color palette  :  C");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 701, 0x00E5E7E6, "Projection  :  V");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 890, 0x00E5E7E6, "Reset  :  R");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 957, 0x00E5E7E6, "Quit  :  ESC");
-}
-
-//void	set_points(float x, float y, float x1, float y1, float z, float z1
 
 void	draw_line(float x, float y, float x1, float y1, t_data *data)
 {
