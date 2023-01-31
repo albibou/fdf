@@ -6,13 +6,13 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:08:37 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/27 19:45:08 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:52:48 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	render_instructionbox(t_img *img)
+static void	render_instructionbox(t_img *img)
 {
 	draw_rectangle(img, 0, 56);
 	draw_rectangle(img, 0, 312);
@@ -20,7 +20,7 @@ void	render_instructionbox(t_img *img)
 	draw_rectangle(img, 0, 824);
 }
 
-void	render_instructiontext(t_data *data)
+static void	render_instructiontext(t_data *data)
 {
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 10, 122, 0x00E5E7E6,
 		"Move up / down  :  W / S");
@@ -43,7 +43,7 @@ void	render_instructiontext(t_data *data)
 int	display_map(t_data *data)
 {
 	render_background(&data->img, data);
-	draw_map(data);
+	draw_map(data, data->points);
 	render_instructionbox(&data->img);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img,
 		0, 0);

@@ -6,32 +6,11 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/27 18:46:07 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:56:49 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int	find_max(int x, int y)
-{
-	if (x > y)
-		return (x);
-	return (y);
-}
-
-int	find_abs(int x)
-{
-	if (x < 0)
-		return (-x);
-	return (x);
-}
-
-int	find_min(int x, int y)
-{
-	if (x < y)
-		return (x);
-	return (y);
-}
 
 int	main(int ac, char **av)
 {

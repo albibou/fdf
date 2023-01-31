@@ -6,31 +6,13 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/27 19:40:16 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/31 15:45:54 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
-void	isometric(float *x, float *y, int z)
-{
-	//float	xtemp;
-	//float	ytemp;
-
-	//xtemp = *x;
-	//ytemp = *y;
-	*x = (*x - *y) * cos(0.8);
-	*y = ((*x + *y) * sin(0.8) - z);
-}
-
-void	cabinet(float *x, float *y, int z)
-{
-	*x = *x + (z * cos(0.8)) / 2;
-	*y = *y + (z * sin(0.8)) / 2;
-}
-
-void	img_pix_put(t_img *img, int x, int y, int color)
+static void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 
@@ -42,11 +24,11 @@ void	render_background(t_img *img, t_data *data)
 {
 	int	i;
 	int	j;
-	int 	color;
+	int	color;
 
 	if (data->palette == 2)
 		color = 0x00FBFBFB;
-	else 
+	else
 		color = 0x00171717;
 	i = 0;
 	while (i < W_HEIGHT)
@@ -70,7 +52,7 @@ void	draw_rectangle(t_img *img, int x, int y)
 	while (i <= 200)
 	{
 		j = 0;
-		while(j <= 399)
+		while (j <= 399)
 		{
 			img_pix_put(img, x + j, y + i, 0x00393E46);
 			j++;
@@ -79,71 +61,50 @@ void	draw_rectangle(t_img *img, int x, int y)
 	}
 }
 
-void	draw_line(float x, float y, float x1, float y1, t_data *data)
+static void	draw_line(t_points points, t_data *data)
 {
 	float	xincr;
 	float	yincr;
 	float	err;
-	float	z;
-	float	z1;
 
-	z = data->tab[(int)y][(int)x];
-	z1 = data->tab[(int)y1][(int)x1];
-	data->color = color_hub(data, z);
-	z /= data->zcoeff;
-	z1 /= data->zcoeff;
-	if (data->projection == 0)
-	{
-		isometric(&x, &y, z);
-		isometric(&x1, &y1, z1);
-	}
-	else if (data->projection == 1)
-	{
-		cabinet(&x, &y, z);
-		cabinet(&x1, &y1, z1);
-	}
-	x *= data->zoom;
-	y *= data->zoom;
-	x1 *= data->zoom;
-	y1 *= data->zoom;
-	x += data->xoffset;
-	y += data->yoffset;
-	x1 += data->xoffset;
-	y1 += data->yoffset;
-	xincr = x1 - x;
-	yincr = y1 - y;
-	err = find_max(find_abs(xincr), find_abs(yincr));
+	set_params(&points, data);
+	xincr = points.x1 - points.x;
+	yincr = points.y1 - points.y;
+	err = ft_findmax(ft_findabs(xincr), ft_findabs(yincr));
 	xincr /= err;
 	yincr /= err;
-	while((int)(x1 - x) || (int)(y1 - y))
+	while ((int)(points.x1 - points.x) || (int)(points.y1 - points.y))
 	{
-		if(x < W_WIDTH && x >= 0 && y < W_HEIGHT && y>= 0)
-			img_pix_put(&data->img, x, y, data->color);
-		x += xincr;
-		y += yincr;
+		if (points.x < W_WIDTH && points.x >= 0 && points.y < W_HEIGHT
+			&& points.y >= 0)
+			img_pix_put(&data->img, points.x, points.y, data->color);
+		points.x += xincr;
+		points.y += yincr;
 	}
-
 }
 
-//void	bresenham_algorithm
-
-void	draw_map(t_data *data)
+void	draw_map(t_data *data, t_points points)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < data->height)
+	points.y = 0;
+	while (points.y < data->height)
 	{
-		x = 0;
-		while (x < data->width)
+		points.x = 0;
+		while (points.x < data->width)
 		{
-			if (x + 1 < data->width)
-				draw_line(x, y, x + 1, y, data);
-			if (y + 1 < data->height)
-				draw_line(x, y, x, y + 1, data);
-			x++;
+			if (points.x + 1 < data->width)
+			{
+				points.x1 = points.x + 1;
+				points.y1 = points.y;
+				draw_line(points, data);
+			}
+			if (points.y + 1 < data->height)
+			{
+				points.y1 = points.y + 1;
+				points.x1 = points.x;
+				draw_line(points, data);
+			}
+			points.x++;
 		}
-		y++;
+		points.y++;
 	}
 }

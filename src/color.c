@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-int	getratio(t_data *data, int z)
+static int	getratio(t_data *data, int z)
 {
 	float	ratio;
 
@@ -25,7 +25,7 @@ int	getratio(t_data *data, int z)
 	return (ratio);
 }
 
-int	color_fadea(t_data *data, int z)
+static int	color_fadea(t_data *data, int z)
 {
 	int	ratio;
 
@@ -46,7 +46,7 @@ int	color_fadea(t_data *data, int z)
 		return (0x00a7001e);
 }
 
-int	color_fadeb(t_data *data, int z)
+static int	color_fadeb(t_data *data, int z)
 {
 	int	ratio;
 
@@ -67,7 +67,7 @@ int	color_fadeb(t_data *data, int z)
 		return (0x00003C57);
 }
 
-int	color_fadec(t_data *data, int z)
+static int	color_fadec(t_data *data, int z)
 {
 	int	ratio;
 

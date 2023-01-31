@@ -5,6 +5,8 @@ SRCS	= ./src/main.c \
 	  ./src/freedata.c \
 	  ./src/color.c \
 	  ./src/init.c \
+	  ./src/setpoints.c \
+	  ./src/event.c \
 
 OBJS	= ${SRCS:.c=.o}
 

@@ -6,13 +6,13 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:31:48 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/27 19:01:27 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:44:40 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	find_zlimits(t_data *data)
+static void	find_zlimits(t_data *data)
 {
 	int	i;
 	int	y;
@@ -33,13 +33,13 @@ void	find_zlimits(t_data *data)
 	}
 }
 
-int	find_zcoeff(t_data *data)
+static int	find_zcoeff(t_data *data)
 {
 	int	ztemp;
 	int	rapport;
 	int	coeff;
 
-	rapport = find_min(data->height, data->width);
+	rapport = ft_findmin(data->height, data->width);
 	ztemp = data->zmax;
 	coeff = 1;
 	while ((ztemp / coeff > rapport / 10))
@@ -47,7 +47,7 @@ int	find_zcoeff(t_data *data)
 	return (coeff);
 }
 
-int	find_zoom(t_data *data)
+static int	find_zoom(t_data *data)
 {
 	float	ratio;
 

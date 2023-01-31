@@ -1,6 +1,9 @@
 SRCS	= ft_atoi.c \
 	  ft_bzero.c \
 	  ft_calloc.c \
+	  ft_findabs.c \
+	  ft_findmax.c \
+	  ft_findmin.c \
 	  ft_freetab.c \
 	  ft_free_inttab.c \
 	  ft_isalnum.c \

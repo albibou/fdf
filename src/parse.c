@@ -6,13 +6,13 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/27 19:04:22 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:38:11 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_width(t_data *data)
+static int	get_width(t_data *data)
 {
 	int		i;
 	int		fd;
@@ -38,7 +38,7 @@ int	get_width(t_data *data)
 	return (i);
 }
 
-int	get_height(t_data *data)
+static int	get_height(t_data *data)
 {
 	int		i;
 	int		fd;
@@ -60,7 +60,7 @@ int	get_height(t_data *data)
 	return (i);
 }
 
-int	*filltab(int *ltab, char *line, t_data *data)
+static int	*filltab(int *ltab, char *line, t_data *data)
 {
 	int		i;
 	char	**sp;

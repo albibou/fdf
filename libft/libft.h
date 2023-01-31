@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:59:15 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/18 13:05:05 by atardif          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:30:27 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -23,8 +23,11 @@ typedef struct s_list
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
+int		ft_findabs(int x);
+int		ft_findmax(int x, int y);
+int		ft_findmin(int x, int y);
 void	ft_freetab(char **tab);
-void	ft_free_inttab(int **tab, int height);
+void	ft_free_inttab(int **tab, int tabsize);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
