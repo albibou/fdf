@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:57:44 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/31 15:45:54 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:32:37 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,13 @@ static void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	render_background(t_img *img, t_data *data)
+void	render_background(t_img *img)
 {
 	int	i;
 	int	j;
 	int	color;
 
-	if (data->palette == 2)
-		color = 0x00FBFBFB;
-	else
-		color = 0x00171717;
+	color = 0x00171717;
 	i = 0;
 	while (i < W_HEIGHT)
 	{

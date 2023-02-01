@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:23:22 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/24 16:40:27 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:30:20 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ static int	color_fadea(t_data *data, int z)
 
 	ratio = getratio(data, z);
 	if (ratio == 0)
-		return (0x00e2e9c9);
+		return (0x00ffffff);
 	else if (ratio > 0 && ratio <= 33)
-		return (0x00bfd49f);
+		return (0x0080ff88);
 	else if (ratio > 33 && ratio <= 66)
-		return (0x009dbe7d);
+		return (0x0040ff4d);
 	else if (ratio > 66)
-		return (0x007aa95c);
+		return (0x0000ff11);
 	else if (ratio < 0 && ratio >= -33)
-		return (0x00d3af97);
+		return (0x00ff8080);
 	else if (ratio < -33 && ratio >= -66)
-		return (0x00bb4e54);
+		return (0x00ff2b2b);
 	else
-		return (0x00a7001e);
+		return (0xff0000);
 }
 
 static int	color_fadeb(t_data *data, int z)
@@ -73,19 +73,19 @@ static int	color_fadec(t_data *data, int z)
 
 	ratio = getratio(data, z);
 	if (ratio == 0)
-		return (0x000B162C);
+		return (0x0000ff00);
 	else if (ratio > 0 && ratio <= 33)
-		return (0x0026496a);
+		return (0x0000ffff);
 	else if (ratio > 33 && ratio <= 66)
-		return (0x004889b8);
+		return (0x000000ff);
 	else if (ratio > 66)
-		return (0x005cafe7);
+		return (0x008000ff);
 	else if (ratio < 0 && ratio >= -33)
-		return (0x00482a48);
+		return (0x00ffff00);
 	else if (ratio < -33 && ratio >= -66)
-		return (0x00c25381);
+		return (0x00ff8000);
 	else
-		return (0x00ff679d);
+		return (0x00ff0000);
 }
 
 int	color_hub(t_data *data, int z)

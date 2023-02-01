@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:08:37 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/31 13:52:48 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:37:41 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	render_instructiontext(t_data *data)
 
 int	display_map(t_data *data)
 {
-	render_background(&data->img, data);
+	render_background(&data->img);
 	draw_map(data, data->points);
 	render_instructionbox(&data->img);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img,

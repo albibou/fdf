@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/31 17:02:36 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:37:03 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	first_init(t_data *data, char **av);
 void	freedata(t_data *data);
 void	init_values(t_data *data);
 void	init_points(t_points points);
-void	render_background(t_img *img, t_data *data);
+void	render_background(t_img *img);
 void	set_params(t_points *points, t_data *data);
 
 #endif
