@@ -12,6 +12,13 @@
 
 #include "fdf.h"
 
+int	close_window(t_data *data)
+{
+	mlx_loop_end(data->mlx_ptr);
+	freedata(data);
+	exit(0);
+}
+
 static int	manage_eventb(int keysym, t_data *data)
 {
 	if (keysym == 118 && data->projection < 2)

@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/31 17:38:11 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:27:24 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_width(t_data *data)
 	i = 0;
 	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1)
-		return (0);
+		exit(1);
 	line = get_next_line(fd);
 	tab = ft_split(line, ' ');
 	while (tab[i])
@@ -47,7 +47,7 @@ static int	get_height(t_data *data)
 	i = 0;
 	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1)
-		return (0);
+		exit(1);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -89,7 +89,7 @@ int	**init_tab(t_data *data)
 	tab = malloc(sizeof(int *) * (data->height + 1));
 	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1 || !tab)
-		return (NULL);
+		exit(1);
 	line = get_next_line(fd);
 	while (i < data->height)
 	{

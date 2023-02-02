@@ -29,8 +29,7 @@ ${NAME}	:
 		make all -C minilibx-linux
 		${CC} -o ${NAME} -g ${CFLAGS} ${SRCS} ${LIBFT} ${MLXFLAGS} 
 
-all :		
-		${NAME}
+all :		${NAME}
 
 clean :
 		${RM} ${OBJS}

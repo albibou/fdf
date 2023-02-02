@@ -75,6 +75,7 @@ typedef struct s_data
 int		**init_tab(t_data *data);
 int		manage_event(int keysym, t_data *data);
 int		display_map(t_data *data);
+int		close_window(t_data *data);
 int		color_hub(t_data *data, int z);
 void	find_offsets(t_data *data);
 void	draw_map(t_data *data, t_points points);
