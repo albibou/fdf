@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:31:48 by atardif           #+#    #+#             */
-/*   Updated: 2023/02/02 20:15:45 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/03 20:04:31 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,18 @@ void	first_init(t_data *data, char **av)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 	{
-		data->error = 2;
-		freedata(data);
-		exit(1);
+		data->error = 3;
+		freeerror(data);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, W_WIDTH, W_HEIGHT, W_NAME);
 	if (!data->win_ptr)
 	{
-		data->error = 3;
-		freedata(data);
-		exit(1);
+		data->error = 4;
+		freeerror(data);
 	}
 	data->zmax = 0;
 	data->zmin = 0;
 	data->palette = 0;
 	data->projection = 0;
-	data->xoffset = 0;
-	data->yoffset = 0;
 	data->color = 0;
-	data->zoom = 0;
-	data->zcoeff = 0;
 }

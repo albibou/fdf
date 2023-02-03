@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 19:39:02 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/31 15:57:04 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/03 11:57:28 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	close_window(t_data *data)
 {
 	mlx_loop_end(data->mlx_ptr);
 	freedata(data);
-	exit(0);
+	return (0);
 }
 
 static int	manage_eventb(int keysym, t_data *data)
@@ -44,7 +44,6 @@ int	manage_event(int keysym, t_data *data)
 	{
 		mlx_loop_end(data->mlx_ptr);
 		freedata(data);
-		exit(0);
 	}
 	else if (keysym == 112)
 		data->zoom += 1;

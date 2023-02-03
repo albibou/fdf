@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 19:20:37 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/31 17:35:53 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/03 20:09:05 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	isometric(float *x, float *y, int z)
 	*y = ((*x + *y) * sin(0.8) - z);
 }
 
-static void	cabinet(float *x, float *y, int z)
+static void	top_view(float *x, float *y, int z)
 {
 	*x = *x + (z * cos(0.6)) / 2;
 	*y = *y + (z * sin(0.6)) / 2;
@@ -39,8 +39,8 @@ void	set_params(t_points *points, t_data *data)
 	}
 	else if (data->projection == 1)
 	{
-		cabinet(&points->x, &points->y, points->z);
-		cabinet(&points->x1, &points->y1, points->z1);
+		top_view(&points->x, &points->y, points->z);
+		top_view(&points->x1, &points->y1, points->z1);
 	}
 	points->x *= data->zoom;
 	points->y *= data->zoom;

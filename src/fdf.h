@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/02/01 14:37:03 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/03 17:00:45 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,14 @@ typedef struct s_data
 int		**init_tab(t_data *data);
 int		manage_event(int keysym, t_data *data);
 int		display_map(t_data *data);
-int		close_window(t_data *data);
 int		color_hub(t_data *data, int z);
+int		close_window(t_data *data);
 void	find_offsets(t_data *data);
 void	draw_map(t_data *data, t_points points);
 void	draw_rectangle(t_img *img, int x, int y);
 void	first_init(t_data *data, char **av);
 void	freedata(t_data *data);
+void	freeerror(t_data *data);
 void	init_values(t_data *data);
 void	init_points(t_points points);
 void	render_background(t_img *img);

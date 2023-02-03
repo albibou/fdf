@@ -42,4 +42,10 @@ fclean :	clean
 
 re :		fclean all
 
+malloc_test :
+		make all -C libft
+		make all -C minilibx-linux
+		${CC} -o ${NAME} -g ${CFLAGS} -fsanitize=undefined -rdynamic ${SRCS} ${LIBFT} -L. ${MLXFLAGS} -lmallocator
+
+
 .PHONY :	all clean fclean re
