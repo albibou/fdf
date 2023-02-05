@@ -10,7 +10,7 @@ SRCS	= ./src/main.c \
 
 OBJS	= ${SRCS:.c=.o}
 
-LIBFT	= -Llibft
+LIBFT	= libft/libft.a
 
 MLX	= -Lminilibx-linux
 
@@ -22,7 +22,7 @@ CC	= cc
 
 CFLAGS	= -Wall -Werror -Wextra
 
-LIBFLAGS	= -lX11 -lXext -lmlx -lm -lft
+LIBFLAGS	= -lX11 -lXext -lmlx -lm
 
 NAME	= fdf
 
@@ -32,7 +32,7 @@ NAME	= fdf
 ${NAME}	:	${OBJS}
 		make all -C libft
 		make all -C minilibx-linux
-		${CC} -o ${NAME} -g ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${MLXFLAGS} 
+		${CC} -o ${NAME} -g ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${LIBFLAGS} 
 
 all :		${NAME}
 
