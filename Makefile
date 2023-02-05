@@ -10,7 +10,9 @@ SRCS	= ./src/main.c \
 
 OBJS	= ${SRCS:.c=.o}
 
-LIBFT	= ./libft/libft.a \
+LIBFT	= -Llibft
+
+MLX	= -Lminilibx-linux
 
 TITLE	= fdf
 
@@ -20,14 +22,17 @@ CC	= cc
 
 CFLAGS	= -Wall -Werror -Wextra
 
-MLXFLAGS	= -Lminilibx-linux -lX11 -lXext -lmlx -lm
+LIBFLAGS	= -lX11 -lXext -lmlx -lm -lft
 
 NAME	= fdf
 
-${NAME}	:	
+.c.o :		
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+
+${NAME}	:	${OBJS}
 		make all -C libft
 		make all -C minilibx-linux
-		${CC} -o ${NAME} -g ${CFLAGS} ${SRCS} ${LIBFT} ${MLXFLAGS} 
+		${CC} -o ${NAME} -g ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${MLXFLAGS} 
 
 all :		${NAME}
 
@@ -41,11 +46,5 @@ fclean :	clean
 		${RM} ${NAME}
 
 re :		fclean all
-
-malloc_test :
-		make all -C libft
-		make all -C minilibx-linux
-		${CC} -o ${NAME} -g ${CFLAGS} -fsanitize=undefined -rdynamic ${SRCS} ${LIBFT} -L. ${MLXFLAGS} -lmallocator
-
 
 .PHONY :	all clean fclean re
