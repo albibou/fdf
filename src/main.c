@@ -6,11 +6,28 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/02/05 16:09:20 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/07 15:28:13 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static int	check_format(char **av, t_data *data)
+{
+	int	i;
+
+	i = ft_strlen(av[1]);
+	if (av[1][i - 1] == 'f' && av[1][i - 2] == 'd' &&
+		av[1][i - 3] == 'f' && av[1][i - 4] == '.')
+		return (0);
+	else
+	{
+		ft_printf("Use it as : './fdf mapname.fdf'\n");
+		free(data);
+		exit(1);
+	}
+	return (1);
+}
 
 static int	check_file(char **av, t_data *data)
 {
@@ -19,11 +36,10 @@ static int	check_file(char **av, t_data *data)
 	char	*string;
 
 	string = malloc(sizeof(char) * 1);
-	if (!string)
-		exit(1);
 	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 || !string)
 	{
+		ft_printf("Use it as : './fdf mapname.fdf'\n");
 		free(string);
 		free(data);
 		exit(1);
@@ -77,6 +93,7 @@ int	main(int ac, char **av)
 		free(data);
 		exit(1);
 	}
+	check_format(av, data);
 	check_file(av, data);
 	first_init(data, av);
 	init_values(data);

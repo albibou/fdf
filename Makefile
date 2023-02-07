@@ -26,14 +26,20 @@ LIBFLAGS	= -lX11 -lXext -lmlx -lm
 
 NAME	= fdf
 
-.c.o :		
+.c.o :	
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}	:	${OBJS}
+${NAME} :	${OBJS}
+		clear
+		@toilet -f pagga.tlf --gay "Libft"
 		make all -C libft
+		clear
+		@toilet -f pagga.tlf --gay "MLX"
 		make all -C minilibx-linux
-		${CC} -o ${NAME} -g ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${LIBFLAGS} 
-
+		${CC} -o ${NAME} -g ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${LIBFLAGS}
+		clear
+	        @toilet -f pagga.tlf --gay "Enjoy FDF !"
+	
 all :		${NAME}
 
 clean :
