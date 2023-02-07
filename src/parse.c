@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/02/03 20:06:55 by atardif          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:25:48 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	**init_tab(t_data *data)
 	i = 0;
 	data->height = get_height(data);
 	data->width = get_width(data);
-	tab = malloc(sizeof(int *) * (data->height + 1));
+	tab = malloc(sizeof(int *) * (data->height));
 	fd = open(data->av[1], O_RDONLY);
 	if (fd == -1 || !tab)
 	{
