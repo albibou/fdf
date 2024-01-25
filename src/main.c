@@ -6,7 +6,7 @@
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:43:27 by atardif           #+#    #+#             */
-/*   Updated: 2023/02/07 15:28:13 by atardif          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:13:18 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	fdf(t_data *data)
 	display_map(data);
 	mlx_hook(data->win_ptr, 2, 1L << 0, &manage_event, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, &close_window, data);
-	mlx_do_key_autorepeatoff(data->mlx_ptr);
+	//mlx_do_key_autorepeatoff(data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);
 	return (0);
 }

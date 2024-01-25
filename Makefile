@@ -14,13 +14,11 @@ LIBFT	= libft/libft.a
 
 MLX	= -Lminilibx-linux
 
-TITLE	= fdf
-
 RM	= rm -f
 
 CC	= cc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -Ofast
 
 LIBFLAGS	= -lX11 -lXext -lmlx -lm
 
@@ -30,15 +28,9 @@ NAME	= fdf
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME} :	${OBJS}
-		clear
-		@toilet -f pagga.tlf --gay "Libft"
 		make all -C libft
-		clear
-		@toilet -f pagga.tlf --gay "MLX"
 		make all -C minilibx-linux
 		${CC} -o ${NAME} -g ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${LIBFLAGS}
-		clear
-	        @toilet -f pagga.tlf --gay "Enjoy FDF !"
 	
 all :		${NAME}
 

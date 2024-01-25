@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 15:02:16 by atardif           #+#    #+#             */
-/*   Updated: 2023/01/10 15:02:24 by atardif          ###   ########.fr       */
+/*   Created: 2023/02/10 12:17:20 by atardif           #+#    #+#             */
+/*   Updated: 2023/02/10 12:21:54 by atardif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*ft_fillres(char *res, char *buffer)
+char	*ft_fillres(char *res, char *buffer)
 {
 	char	*temp;
 
@@ -26,7 +26,7 @@ static char	*ft_fillres(char *res, char *buffer)
 	return (temp);
 }
 
-static char	*ft_filline(char *res)
+char	*ft_filline(char *res)
 {
 	int		set;
 	char	*line;
@@ -41,7 +41,7 @@ static char	*ft_filline(char *res)
 	return (line);
 }
 
-static char	*ft_resetres(char *res)
+char	*ft_resetres(char *res)
 {
 	char	*temp;
 	int		set;
@@ -57,7 +57,7 @@ static char	*ft_resetres(char *res)
 	return (temp);
 }
 
-static char	*ft_read(int fd, char *res)
+char	*ft_read(int fd, char *res)
 {
 	char	*buffer;
 	int		size;
@@ -86,17 +86,17 @@ static char	*ft_read(int fd, char *res)
 
 char	*get_next_line(int fd)
 {
-	static char	*res;
+	static char	*res[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
 		return (NULL);
-	res = ft_read(fd, res);
-	if (!res)
+	res[fd] = ft_read(fd, res[fd]);
+	if (!res[fd])
 		return (NULL);
-	line = ft_filline(res);
+	line = ft_filline(res[fd]);
 	if (!line)
 		return (NULL);
-	res = ft_resetres(res);
+	res[fd] = ft_resetres(res[fd]);
 	return (line);
 }
